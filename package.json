@@ -23,6 +23,11 @@
     "name": "Lovepreet Kaul",
     "email": "lovepreetkaul2994@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/love-kaul/sequelize-query-filter.git"
+  },
+  "homepage": "https://github.com/love-kaul/sequelize-query-filter",
   "license": "MIT",
   "dependencies": {
     "sequelize": "^6.35.1",
