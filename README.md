@@ -8,20 +8,21 @@ Flexible, secure, and type-safe filter builder for Sequelize and raw SQL queries
 - Supports all major Sequelize operators (`eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `like`, `in`, `between`, etc.)
 - Compound logic (`and`, `or`) for complex queries
 - Type casting for dates, numbers, booleans, strings
-- Build Sequelize `where` objects or raw SQL `WHERE` clauses with parameters
+- Build Sequelize `where` objects or raw SQL `WHERE` clauses with named parameters
+- **Implicit AND:** If you pass an array of filter objects, it is treated as an implicit `AND` condition
 
 ## Installation
 
 ```bash
-npm install sequelize-query-filter
+npm install sequelize-query-filter-builder
 ```
 
-## Usage
+## Usage (ES Modules)
 
 ### 1. Build a Sequelize WHERE clause
 
 ```javascript
-const { buildSequelizeWhere } = require('sequelize-query-filter');
+import { buildSequelizeWhere } from 'sequelize-query-filter-builder';
 
 const filter = {
   field: 'status',
@@ -37,6 +38,8 @@ const whereClause = buildSequelizeWhere(filter);
 ### 2. Compound filters
 
 ```javascript
+import { buildSequelizeWhere } from 'sequelize-query-filter-builder';
+
 const filter = {
   and: [
     { field: 'status', operator: 'eq', value: 'active', type: 'string' },
@@ -52,10 +55,24 @@ const filter = {
 const whereClause = buildSequelizeWhere(filter);
 ```
 
-### 3. Raw SQL WHERE clause
+### 3. Implicit AND with array of filters
 
 ```javascript
-const { buildRawQueryFromFilter } = require('sequelize-query-filter');
+import { buildSequelizeWhere } from 'sequelize-query-filter-builder';
+
+const filters = [
+  { field: 'status', operator: 'eq', value: 'active', type: 'string' },
+  { field: 'amount', operator: 'gt', value: 100, type: 'number' }
+];
+
+const whereClause = buildSequelizeWhere(filters);
+// Equivalent to: { [Op.and]: [ ... ] }
+```
+
+### 4. Raw SQL WHERE clause (named params)
+
+```javascript
+import { buildRawQueryFromFilter } from 'sequelize-query-filter-builder';
 
 const filter = {
   field: 'created_at',
@@ -65,7 +82,7 @@ const filter = {
 };
 
 const { where, params } = buildRawQueryFromFilter(filter);
-// db.query(`SELECT * FROM table WHERE ${where}`, params);
+// db.query(`SELECT * FROM table WHERE ${where}`, { replacements: params });
 ```
 
 ## API
@@ -81,10 +98,13 @@ Compound logic:
 - `and`: Array of filter objects
 - `or`: Array of filter objects
 
+**Implicit AND:**  
+Passing an array of filter objects is treated as an implicit `AND` condition.
+
 ### Functions
 
 - `buildSequelizeWhere(filter)`: Returns a Sequelize-compatible `where` object.
-- `buildRawQueryFromFilter(filter)`: Returns `{ where, params }` for raw SQL queries.
+- `buildRawQueryFromFilter(filter)`: Returns `{ where, params }` for raw SQL queries (named parameters).
 
 ## JSDoc Support
 

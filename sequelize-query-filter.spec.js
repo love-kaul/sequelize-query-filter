@@ -137,22 +137,23 @@ describe('sequelize-filter', () => {
     it('should build raw query for eq', () => {
       const filter = { field: 'a', operator: 'eq', value: 1, type: 'number' };
       const { where, params } = buildRawQueryFromFilter(filter);
-      where.should.include('"a" = $1');
-      params.should.eql([1]);
+      where.should.include('"a" = :param1');
+      params.should.eql({ param1: 1 });
     });
 
     it('should build raw query for between', () => {
       const filter = { field: 'a', operator: 'between', value: [1, 2], type: 'number' };
       const { where, params } = buildRawQueryFromFilter(filter);
       where.should.include('BETWEEN');
-      params.should.eql([1, 2]);
+      params.should.eql({ param1: 1, param2: 2 });
     });
 
     it('should build raw query for in', () => {
       const filter = { field: 'a', operator: 'in', value: [1, 2], type: 'number' };
       const { where, params } = buildRawQueryFromFilter(filter);
       where.should.include('IN');
-      params.should.eql([1, 2]);
+      params.should.have.property('param1').equal(1);
+      params.should.have.property('param2').equal(2);
     });
 
     it('should build raw query for compound and/or', () => {
@@ -170,7 +171,9 @@ describe('sequelize-filter', () => {
       const { where, params } = buildRawQueryFromFilter(filter);
       where.should.include('AND');
       where.should.include('OR');
-      params.should.eql([1, 2, 3]);
+      params.should.have.property('param1').equal(1);
+      params.should.have.property('param2').equal(2);
+      params.should.have.property('param3').equal(3);
     });
 
     it('should throw error for invalid identifier', () => {
