@@ -1,6 +1,6 @@
 {
-  "name": "sequelize-query-filter",
-  "version": "1.0.1",
+  "name": "sequelize-query-filter-builder",
+  "version": "1.0.2",
   "description": "Flexible, type-safe filter builder for Sequelize and raw SQL queries with validation, coercion, and compound logic support.",
   "main": "index.js",
   "scripts": {

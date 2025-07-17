@@ -86,6 +86,23 @@ Compound logic:
 - `buildSequelizeWhere(filter)`: Returns a Sequelize-compatible `where` object.
 - `buildRawQueryFromFilter(filter)`: Returns `{ where, params }` for raw SQL queries.
 
+## JSDoc Support
+
+This package uses [JSDoc](https://jsdoc.app/) for inline documentation of its API.  
+You can generate HTML documentation by running:
+
+```bash
+npx jsdoc index.js
+```
+
+Or view type hints and documentation in supported editors.
+
+Main exported functions are documented with JSDoc comments:
+- `buildSequelizeWhere(filter)`
+- `buildRawQueryFromFilter(filter)`
+- `validateFilterObject(filter)`
+- `coerceValue(value, type)`
+
 ## Extending
 
 Add new operators or types by updating the operator map and allowed types in the source.
