@@ -1,0 +1,5 @@
+color: true
+reporter: spec
+spec: sequelize-query-filter.spec.js
+ui: bdd
+timeout: 5000
