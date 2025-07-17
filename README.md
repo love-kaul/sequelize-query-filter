@@ -1,4 +1,4 @@
-# sequelize-query-filter
+# sequelize-query-filter-builder
 
 Flexible, secure, and type-safe filter builder for Sequelize and raw SQL queries.
 

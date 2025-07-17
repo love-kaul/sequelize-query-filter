@@ -1,6 +1,6 @@
 {
   "name": "sequelize-query-filter-builder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Flexible, type-safe filter builder for Sequelize and raw SQL queries with validation, coercion, and compound logic support.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,8 @@
     "coercion",
     "orm",
     "compound",
-    "logic"
+    "logic",
+    "sequelize-query-filter-builder"
   ],
   "author": {
     "name": "Lovepreet Kaul",
